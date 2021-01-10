@@ -10,19 +10,24 @@ export class ImageUploadComponent{
 
   constructor(private http: HttpClient) {}
 
-  selectedFile:File;
+  selectedFile:any;
   // selectedFile:FormData = new FormData()
-  onFileSelected(event: any) {
-    
-    this.selectedFile = event.target.files[0]
-    console.log(this.selectedFile)
+  onFileSelected(event: any) {   
+    this.readThis(event.target)
   }
 
   onUpload() {
-    const fd = new FormData();
-    fd.append("image", this.selectedFile, this.selectedFile.name);
-    console.log(fd)
-    this.http.post("https://rm2251t9j3.execute-api.us-west-2.amazonaws.com/develop/mosaic", fd).subscribe(res => {console.log(res)})
+    console.log(this.selectedFile);
+    this.http.post("https://rm2251t9j3.execute-api.us-west-2.amazonaws.com/develop/mosaic", this.selectedFile).subscribe(res => {console.log(res)})
   }
 
+  readThis(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader:FileReader = new FileReader();
+  
+    myReader.onloadend = (e) => {
+      this.selectedFile = myReader.result;
+    }
+    myReader.readAsDataURL(file);
+  }
 }

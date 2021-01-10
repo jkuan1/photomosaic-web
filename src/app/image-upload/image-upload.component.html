@@ -1,3 +1,5 @@
 <h1>Upload your template image here!</h1>
-<input type='file' (change)="onFileSelected($event)">
+<canvas id="pictureCanvas" width="200" height="100"></canvas>
+<input type='file' accept="image/*" (change)="onFileSelected($event)">
 <button type='button' (click)="onUpload()">Upload</button>
+
