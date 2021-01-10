@@ -11,9 +11,11 @@ export class ImageUploadComponent{
   constructor(private http: HttpClient) {}
 
   selectedFile:File;
+  // selectedFile:FormData = new FormData()
   onFileSelected(event: any) {
     
     this.selectedFile = event.target.files[0]
+    console.log(this.selectedFile)
   }
 
   onUpload() {
