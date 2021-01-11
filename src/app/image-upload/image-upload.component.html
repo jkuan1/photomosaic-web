@@ -1,5 +1,9 @@
-<h1>Upload your template image here!</h1>
-<canvas id="pictureCanvas" width="200" height="100"></canvas>
-<input type='file' accept="image/*" (change)="onFileSelected($event)">
-<button type='button' (click)="onUpload()">Upload</button>
+<div class="card-container">
+    
+    <h1>Upload your image here!</h1>
+    <input type='file' accept="image/*" (change)="onFileSelected($event)">
+    <button type='button' (click)="onUpload()">Mosaicfy</button>
+    
+</div>
 
+<img id="userPic" src="/assets/img/bill_gates_mosaic.jpg" alt="your image" />
