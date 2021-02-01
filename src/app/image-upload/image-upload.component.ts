@@ -23,7 +23,7 @@ export class ImageUploadComponent{
   onUpload() {
     console.log(this.selectedFile);
 
-    this.http.post("https://rm2251t9j3.execute-api.us-west-2.amazonaws.com/develop/mosaic", this.selectedFile).subscribe(res => {
+    this.http.post("https://z4qngk4vj4.execute-api.us-west-2.amazonaws.com/develop/mosaic", this.selectedFile).subscribe(res => {
       console.log(res);
       var image = new Image();
       image.onload = function(){
