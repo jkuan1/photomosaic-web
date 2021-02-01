@@ -23,7 +23,7 @@ export class ImageUploadComponent{
   onUpload() {
     console.log(this.selectedFile);
 
-    this.http.post("https://rm2251t9j3.execute-api.us-west-2.amazonaws.com/develop/mosaic", this.selectedFile).subscribe(res => {
+    this.http.post("https://z4qngk4vj4.execute-api.us-west-2.amazonaws.com/develop", this.selectedFile).subscribe(res => {
       console.log(res);
       var image = new Image();
       image.onload = function(){
@@ -39,10 +39,43 @@ export class ImageUploadComponent{
   readThis(inputValue: any): void {
     var file:File = inputValue.files[0];
     var myReader:FileReader = new FileReader();
+
+    var img = document.createElement("img");
   
     myReader.onloadend = (e:any) => {
       this.selectedFile = myReader.result;
-      (document.getElementById('userPic') as HTMLImageElement).src = e.target.result
+
+      img.src = e.target.result;
+
+      var canvas = document.createElement("canvas");
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0 ,0);
+
+      var MAX_WIDTH = 400;
+      var MAX_HEIGHT = 400;
+      var width = img.width;
+      var height = img.height;
+
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+        }
+      } else {
+          if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+          }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+
+      var dataurl = canvas.toDataURL("image/png");
+      (document.getElementById('userPic') as HTMLImageElement).src = dataurl;
+
     }
 
     myReader.readAsDataURL(file);
